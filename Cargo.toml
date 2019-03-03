@@ -1,0 +1,15 @@
+[package]
+name = "animation-creator"
+version = "0.1.0"
+authors = ["Josh"]
+edition = "2018"
+
+[dependencies]
+glium = "0.22"
+imgui = "0.0.21"
+image = "*"
+imgui-glium-renderer = "0.0.21"
+num = "0.2.0"
+nalgebra-glm = "0.1"
+nalgebra = "0.16"
+fnv = "1.0.6"
