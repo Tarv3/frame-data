@@ -1,4 +1,6 @@
 pub mod shape_gen;
+pub mod render_windows;
+pub mod image_render;
 
 use glium::*;
 use na::geometry::*;
@@ -8,6 +10,8 @@ use na::Vector2;
 pub struct Vertex {
     pub pos: [f32; 2],
 }
+
+implement_vertex!(Vertex, pos);
 
 pub struct BoxRenderer {
     program: Program,
@@ -25,3 +29,4 @@ impl BoxRenderer {
         Ok(())
     }
 }
+

@@ -56,7 +56,7 @@ impl<T: na::Real> BoundingBox<T> {
         self.transformation.translation.vector
     }
 
-    pub fn get_rotation(&self) -> f32 {
+    pub fn get_rotation(&self) -> T {
         self.transformation.rotation.angle()
     }
 }

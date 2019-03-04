@@ -13,3 +13,4 @@ num = "0.2.0"
 nalgebra-glm = "0.1"
 nalgebra = "0.16"
 fnv = "1.0.6"
+novec = { git = "https://github.com/Tarv3/novec.git"}
