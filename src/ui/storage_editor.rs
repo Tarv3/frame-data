@@ -176,6 +176,7 @@ impl StorageEditor {
             None => return 
         };
         let mut to_remove = None;
+        let mut to_move = None;
 
         let (x, _) = ui.get_window_size();
         let child_x = x - self.config.width_padding;
@@ -190,18 +191,37 @@ impl StorageEditor {
                 for (i, desc)in data_description.get_desc().iter().enumerate() {
                     let text = format!("{}: {:?}", desc.name, desc.dtype);
                     let remove = im_str!("Remove##{}", i);
-                    ui.text(&text);
-                    ui.same_line(child_x - 50.0 - self.config.width_padding);
+                    let up = im_str!("u##{}", i);
+                    let down = im_str!("d##{}", i);
 
+                    ui.text(&text);
+                    ui.same_line(child_x - 100.0 - self.config.width_padding);
+                    if ui.small_button(up) {
+                        to_move = Some((i, true));
+                    }
+
+                    ui.same_line(child_x - 75.0 - self.config.width_padding);
+                    if ui.small_button(down) {
+                        to_move = Some((i, false));
+                    }
+
+                    ui.same_line(child_x - 50.0 - self.config.width_padding);
                     if ui.small_button(remove) {
                         to_remove = Some(i);
                     }
+
                 }
             });  
         });
 
         if let Some(index) = to_remove {
             data_description.remove_field(index);
+        }
+
+        match to_move {
+            Some((i, true)) => data_description.move_field_up(i),
+            Some((i, false)) => data_description.move_field_down(i),
+            _ => {}
         }
     }
 

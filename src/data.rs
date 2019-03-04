@@ -170,6 +170,36 @@ impl<K: Hash + Eq> DataTypeStorage<K> {
             value.remove(index);
         }
     }
+
+    pub fn move_field_up(&mut self, index: usize) {
+        if index == 0 || self.description.len() == 0 {
+            return;
+        }
+
+        let (left, right) = self.description.split_at_mut(index);
+        std::mem::swap(&mut right[0], &mut left[index - 1]);
+
+        for value in self.values.values_mut() {
+            let (left, right) = value.split_at_mut(index);
+            std::mem::swap(&mut right[0], &mut left[index - 1]);
+        }
+    }
+
+    pub fn move_field_down(&mut self, index: usize) {
+        if index == self.description.len() - 1 || self.description.len() == 0 {
+            return;
+        }
+
+        let (left, right) = self.description.split_at_mut(index + 1);
+        std::mem::swap(&mut right[0], &mut left[index]);
+
+        for value in self.values.values_mut() {
+            let (left, right) = value.split_at_mut(index + 1);
+            std::mem::swap(&mut right[0], &mut left[index]);
+        }
+    }
+
+
 }
 
 pub struct DataStorage<K>  {
